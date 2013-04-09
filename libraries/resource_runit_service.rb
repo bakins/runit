@@ -45,6 +45,7 @@ class Chef
         @log = true
         @cookbook = nil
         @finish = false
+        @check = false
         @owner = nil
         @group = nil
         @enabled = false
@@ -54,6 +55,7 @@ class Chef
         @run_template_name = @service_name
         @log_template_name = @service_name
         @finish_script_template_name = @service_name
+        @check_script_template_name = @service_name
         @control_template_names = {}
         @status_command = "#{@sv_bin} status #{@service_dir}"
         @sv_templates = true
@@ -125,6 +127,10 @@ class Chef
         set_or_return(:finish, arg, :kind_of => [TrueClass, FalseClass])
       end
 
+      def check(arg=nil)
+        set_or_return(:check, arg, :kind_of => [TrueClass, FalseClass])
+      end
+
       def owner(arg=nil)
         set_or_return(:owner, arg, :regex => [Chef::Config[:user_valid_regex]])
       end
@@ -152,6 +158,10 @@ class Chef
 
       def finish_script_template_name(arg=nil)
         set_or_return(:finish_script_template_name, arg, :kind_of => [String])
+      end
+
+      def check_script_template_name(arg=nil)
+        set_or_return(:check_script_template_name, arg, :kind_of => [String])
       end
 
       def control_template_names(arg=nil)
